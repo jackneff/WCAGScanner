@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WCAG Scan Diff Report</title>
+  <style>
+{{STYLE}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>WCAG Scan Diff Report</h1>
+    <p class="timestamp">Generated: {{GENERATED_AT}}</p>
+
+    <div class="meta">
+      <strong>Newer:</strong> {{NEWER_NAME}}<br>
+      <strong>Older:</strong> {{OLDER_NAME}}
+    </div>
+
+    <div class="summary">
+      <div class="card">
+        <h3>New Issues</h3>
+        <div class="value new">{{NEW_COUNT}}</div>
+      </div>
+      <div class="card">
+        <h3>Resolved Issues</h3>
+        <div class="value resolved">{{RESOLVED_COUNT}}</div>
+      </div>
+      <div class="card">
+        <h3>Persisting Issues</h3>
+        <div class="value persisting">{{PERSISTING_COUNT}}</div>
+      </div>
+    </div>
+
+    <h2>All Changes</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Status</th>
+          <th>Page URL</th>
+          <th>Rule Code</th>
+          <th>Impact</th>
+          <th>Standard</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{TABLE_ROWS}}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
