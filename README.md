@@ -6,13 +6,13 @@ Automated accessibility scanner for WCAG 2.1 AA compliance using Pa11y.
 
 ## Prerequisites
 
-- Node.js 20+ 
+- Node.js 20+
 - Google Chrome (installed automatically with Chromium)
 
 ## Installation
 
 ```bash
-cd WebMonitoring/WCAGScanner
+cd WCAGScanner
 npm install
 ```
 
@@ -80,7 +80,7 @@ Use Windows Task Scheduler to run scans on schedule:
 2. Create Basic Task
 3. Set trigger (daily/weekly)
 4. Program: `cmd.exe`
-5. Arguments: `/c cd /d "C:\jack\dev\SysOps\WebMonitoring\WCAGScanner" && npm run scan`
+5. Arguments: `/c cd /d "WCAGScanner" && npm run scan`
 
 ## Report Structure
 
