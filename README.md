@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 # WCAGScanner
-=======
+
 # WCAG Validation Scanner
 
 Automated accessibility scanner for WCAG 2.1 AA compliance using Pa11y.
@@ -121,6 +120,3 @@ Scan in batches using URL subsets or limit sitemap depth.
 ## License
 
 GPL-3.0 - See package.json for details.
->>>>>>> 05ca1f7 (First)
-# WCAGScanner
-# WCAGScanner

@@ -1,0 +1,26 @@
+{
+  "defaults": {
+    "standard": "WCAG2AA",
+    "runners": [
+      "axe",
+      "htmlcs"
+    ],
+    "timeout": 60000,
+    "wait": 2000,
+    "chromeLaunchConfig": {
+      "args": [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-dev-shm-usage",
+        "--disable-gpu"
+      ]
+    },
+    "reporters": [
+      "json",
+      "cli"
+    ]
+  },
+  "urls": [
+    "https://web1.thurstoncountywa.gov/hazwaste/"
+  ]
+}
