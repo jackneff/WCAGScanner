@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{REPORT_TITLE}}</title>
+  <style>
+{{STYLE}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>{{REPORT_TITLE}}</h1>
+    <p class="timestamp">Generated: {{GENERATED_AT}}</p>
+    <div class="standards-bar">
+      {{STANDARDS_BAR}}
+    </div>
+
+    {{DIFF_SECTION}}
+
+    <div class="stats-row">
+      <div class="card">
+        <h3>Total Pages</h3>
+        <div class="value">{{TOTAL_PAGES}}</div>
+      </div>
+      <div class="card">
+        <h3>Pages Passed</h3>
+        <div class="value c-passed">{{PAGES_PASSED}}</div>
+      </div>
+      <div class="card">
+        <h3>Pages with Issues</h3>
+        <div class="value c-failed">{{PAGES_WITH_ISSUES}}</div>
+      </div>
+      <div class="card">
+        <h3>Total Issues</h3>
+        <div class="value">{{TOTAL_ISSUES}}</div>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="card card-filterable critical-card" data-filter="critical" role="button" tabindex="0" aria-pressed="false">
+        <h3>Critical</h3>
+        <div class="value c-critical">{{CRITICAL_COUNT}}</div>
+      </div>
+      <div class="card card-filterable serious-card" data-filter="serious" role="button" tabindex="0" aria-pressed="false">
+        <h3>Serious</h3>
+        <div class="value c-serious">{{SERIOUS_COUNT}}</div>
+      </div>
+      <div class="card card-filterable moderate-card" data-filter="moderate" role="button" tabindex="0" aria-pressed="false">
+        <h3>Moderate</h3>
+        <div class="value c-moderate">{{MODERATE_COUNT}}</div>
+      </div>
+      <div class="card card-filterable minor-card" data-filter="minor" role="button" tabindex="0" aria-pressed="false">
+        <h3>Minor</h3>
+        <div class="value c-minor">{{MINOR_COUNT}}</div>
+      </div>
+    </div>
+    <p class="filter-hint">Click an impact card to filter the table. Click again to clear.</p>
+
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:32px;margin-bottom:0">
+      <h2 style="margin:0">Issues <span id="issueCountBadge" style="font-size:14px;font-weight:400;color:#888"></span></h2>
+      <button id="exportCsvBtn" style="margin-left:auto;padding:7px 18px;border:1.5px solid #0066cc;border-radius:6px;background:white;color:#0066cc;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px">
+        &#x2B07; Download CSV
+      </button>
+    </div>
+    <p class="row-click-hint">Click any row to view a visual representation of the issue on the page.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Page</th>
+            <th>Rule</th>
+            <th>Impact</th>
+            {{MULTI_STANDARD_TH}}
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody id="issuesTbody">
+          {{TABLE_ROWS}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── Visual Modal ─────────────────────────────────────────── -->
+  <div id="modal" class="modal-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="modalIssueTitle">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-header-info">
+          <p id="modalIssueTitle" class="modal-issue-title"></p>
+          <div class="modal-page-row">
+            <span id="modalUrl" class="modal-url-text"></span>
+            <a id="modalUrlLink" href="#" target="_blank" rel="noopener" class="modal-url-link">Open page ↗</a>
+          </div>
+        </div>
+        <button id="modalClose" class="modal-close-btn" aria-label="Close visual viewer">&#x2715;</button>
+      </div>
+      <div class="modal-body">
+        <div id="screenshotPanel" class="screenshot-panel">
+          <div id="screenshotContainer" class="screenshot-container">
+            <img id="screenshotImg" src="" alt="Page screenshot">
+          </div>
+        </div>
+        <div id="contextFallback" class="context-fallback" hidden>
+          <h3>Selector</h3>
+          <code id="selectorPath" class="selector-display"></code>
+          <h3>Element HTML</h3>
+          <pre id="contextCode"></pre>
+        </div>
+        <div class="issue-list-panel">
+          <div class="issue-list-header" id="issueListHeader">Issues on this page</div>
+          <div id="issueList"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay-tooltip" id="overlayTooltip"></div>
+
+  <script>
+    var ISSUES = {{ISSUES_JSON}};
+    var VISUALS = {{VISUALS_JSON}};
+    var MULTI_STANDARD = {{MULTI_STANDARD}};
+  </script>
+  <script>
+{{CLIENT_JS}}
+  </script>
+</body>
+</html>
