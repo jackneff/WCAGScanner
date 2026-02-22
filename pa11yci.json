@@ -19,8 +19,5 @@
       "json",
       "cli"
     ]
-  },
-  "urls": [
-    "https://web1.thurstoncountywa.gov/hazwaste/"
-  ]
+  }
 }

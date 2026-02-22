@@ -1,0 +1,19 @@
+# WCAG Scanner — URL List
+# ──────────────────────────────────────────────────────────────
+# Add one URL per line. Lines starting with # are ignored.
+# This file is a template. Your actual urls.txt is never committed to git.
+#
+# HOW TO USE:
+#   1. This file was automatically copied to urls.txt for you.
+#   2. Open urls.txt (not this file) in any text editor.
+#   3. Replace the example URLs below with your own site's pages.
+#   4. Save urls.txt and run:  npm run scan
+#
+# TIP: You can also auto-discover pages from a sitemap by setting
+#      SITEMAP_URL before running:
+#        set SITEMAP_URL=https://yoursite.com/sitemap.xml
+#        npm run scan
+
+https://yoursite.com/
+https://yoursite.com/about
+https://yoursite.com/contact

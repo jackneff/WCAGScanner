@@ -78,14 +78,18 @@ npm install
 
 ### 1. Add URLs to scan
 
-Edit `urls.txt` — one URL per line. Lines beginning with `#` are ignored.
+On first run the scanner creates `urls.txt` automatically from the included template and
+exits with instructions. Open `urls.txt` in any text editor, replace the example lines with
+your own URLs (one per line), then run again.
 
 ```
 https://yoursite.com/
 https://yoursite.com/about
 https://yoursite.com/contact
-# https://yoursite.com/wip  ← skipped
+# https://yoursite.com/wip  ← lines starting with # are ignored
 ```
+
+`urls.txt` is excluded from version control — your URLs will never be accidentally committed.
 
 ### 2. Use a sitemap (optional)
 
@@ -126,7 +130,7 @@ set SKIP_VISUALS=true
 npm run scan
 ```
 
-### 5. Advanced settings (`.pa11yci.json`)
+### 5. Advanced settings (`pa11yci.json`)
 
 ```json
 {
@@ -257,7 +261,7 @@ directly from the browser without running any command.
 
 ### Timeout errors
 
-Increase `timeout` in `.pa11yci.json` (value is in milliseconds):
+Increase `timeout` in `pa11yci.json` (value is in milliseconds):
 
 ```json
 { "defaults": { "timeout": 120000 } }
@@ -265,7 +269,7 @@ Increase `timeout` in `.pa11yci.json` (value is in milliseconds):
 
 ### Pages require authentication
 
-Add a `actions` array to `.pa11yci.json` to simulate login steps before testing:
+Add a `actions` array to `pa11yci.json` to simulate login steps before testing:
 
 ```json
 {
@@ -288,7 +292,7 @@ set `SKIP_VISUALS=true` to reduce memory usage.
 
 ### Chrome sandbox errors in CI / Docker
 
-Add sandbox flags to `.pa11yci.json`:
+Add sandbox flags to `pa11yci.json`:
 
 ```json
 {

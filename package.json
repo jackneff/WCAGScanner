@@ -2,13 +2,13 @@
   "name": "wcag-scanner",
   "version": "1.0.0",
   "description": "WCAG 2.1 AA Compliance Scanner using Pa11y",
-  "main": "scan.js",
+  "main": "src/scan.js",
   "scripts": {
-    "scan": "node scan.js",
-    "scan:ci": "pa11y-ci -c .pa11yci.json",
-    "diff": "node diff.js",
-    "dashboard": "node dashboard.js",
-    "export": "node export.js"
+    "scan": "node src/scan.js",
+    "scan:ci": "pa11y-ci -c pa11yci.json",
+    "diff": "node src/diff.js",
+    "dashboard": "node src/dashboard.js",
+    "export": "node src/export.js"
   },
   "keywords": ["accessibility", "wcag", "pa11y", "a11y", "compliance"],
   "author": "",

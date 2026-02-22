@@ -4,9 +4,11 @@ const crypto = require('crypto');
 const axios = require('axios');
 const xml2js = require('xml2js');
 
-const CONFIG_FILE = '.pa11yci.json';
+const ROOT = path.join(__dirname, '..');
+
+const CONFIG_FILE = 'pa11yci.json';
 const URLS_FILE = 'urls.txt';
-const REPORTS_DIR = 'reports';
+const REPORTS_DIR = path.join(ROOT, 'reports');
 const SITEMAP_URL = process.env.SITEMAP_URL || '';
 const SKIP_VISUALS = process.env.SKIP_VISUALS === 'true';
 const WCAG_STANDARDS = (process.env.WCAG_STANDARDS || 'WCAG2AA')
@@ -60,7 +62,7 @@ function mergeUrls(urlsFromFile, urlsFromSitemap) {
 }
 
 function buildConfig(urls, standard) {
-  const configPath = path.join(__dirname, CONFIG_FILE);
+  const configPath = path.join(ROOT, CONFIG_FILE);
   let base = {};
   if (fs.existsSync(configPath)) {
     base = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
@@ -73,7 +75,7 @@ function buildConfig(urls, standard) {
 }
 
 function getChromeArgs() {
-  const configPath = path.join(__dirname, CONFIG_FILE);
+  const configPath = path.join(ROOT, CONFIG_FILE);
   if (fs.existsSync(configPath)) {
     try {
       const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
@@ -100,8 +102,8 @@ function generateReportFilename() {
 }
 
 async function runScanForStandard(standard, urls) {
-  const tempConfigName = `.pa11yci-${standard}.json`;
-  const tempConfigPath = path.join(__dirname, tempConfigName);
+  const tempConfigName = `pa11yci-${standard}.json`;
+  const tempConfigPath = path.join(ROOT, tempConfigName);
   const config = buildConfig(urls, standard);
   fs.writeFileSync(tempConfigPath, JSON.stringify(config, null, 2));
 
@@ -109,7 +111,7 @@ async function runScanForStandard(standard, urls) {
     return await new Promise((resolve, reject) => {
       const { spawn } = require('child_process');
       const child = spawn('npx', ['pa11y-ci', '-c', tempConfigName, '--reporter', 'json'], {
-        cwd: __dirname,
+        cwd: ROOT,
         shell: true
       });
 
@@ -217,7 +219,17 @@ async function runScan() {
 
   const startTime = new Date();
 
-  let urlsFromFile = loadUrlsFromFile(path.join(__dirname, URLS_FILE));
+  // First-run: if urls.txt doesn't exist, create it from the template
+  const urlsFilePath    = path.join(ROOT, URLS_FILE);
+  const urlsExamplePath = path.join(ROOT, 'urls.example.txt');
+  if (!fs.existsSync(urlsFilePath) && fs.existsSync(urlsExamplePath)) {
+    fs.copyFileSync(urlsExamplePath, urlsFilePath);
+    console.log('\n  No urls.txt found — created one from the template.');
+    console.log('  \u279c Open urls.txt, replace the example URLs with your own, then run again.\n');
+    process.exit(0);
+  }
+
+  let urlsFromFile = loadUrlsFromFile(path.join(ROOT, URLS_FILE));
   let urlsFromSitemap = [];
 
   if (SITEMAP_URL) {
@@ -258,7 +270,7 @@ async function runScan() {
 
   // Visual capture pass
   if (!SKIP_VISUALS) {
-    const screenshotsDir = path.join(__dirname, REPORTS_DIR, 'screenshots');
+    const screenshotsDir = path.join(REPORTS_DIR, 'screenshots');
     if (!fs.existsSync(screenshotsDir)) {
       fs.mkdirSync(screenshotsDir, { recursive: true });
     }
@@ -286,7 +298,7 @@ async function runScan() {
     : [];
   if (existingReports.length > 0) {
     try {
-      const prevPath = path.join(__dirname, REPORTS_DIR, existingReports[0]);
+      const prevPath = path.join(REPORTS_DIR, existingReports[0]);
       const prevReport = JSON.parse(fs.readFileSync(prevPath, 'utf-8'));
       const { compareReports } = require('./diff.js');
       const comparison = compareReports(prevReport, mergedResults);

@@ -1,7 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const REPORTS_DIR = 'reports';
+const ROOT = path.join(__dirname, '..');
+const REPORTS_DIR = path.join(ROOT, 'reports');
 
 /**
  * Convert a flat array of issue objects to RFC 4180 CSV.
@@ -43,7 +44,7 @@ function issuesToCsv(issues) {
 }
 
 function findMostRecentReport(reportsDir) {
-  const reportsPath = path.join(__dirname, reportsDir);
+  const reportsPath = reportsDir;
   if (!fs.existsSync(reportsPath)) {
     throw new Error(`Reports directory not found: ${reportsPath}`);
   }

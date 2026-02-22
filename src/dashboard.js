@@ -1,7 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const REPORTS_DIR = 'reports';
+const ROOT = path.join(__dirname, '..');
+const REPORTS_DIR = path.join(ROOT, 'reports');
 
 function parseTimestamp(filename) {
   // 'wcag-report-2026-02-22T07-36-32.json' → '2026-02-22T07:36:32'
@@ -289,7 +290,7 @@ function generateDashboardHtml(summaries) {
 function runDashboard() {
   console.log('=== WCAG Trend Dashboard ===\n');
 
-  const reportsPath = path.join(__dirname, REPORTS_DIR);
+  const reportsPath = REPORTS_DIR;
   if (!fs.existsSync(reportsPath)) {
     console.error('No reports directory found. Run "npm run scan" first.');
     process.exit(1);

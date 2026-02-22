@@ -1,10 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 
-const REPORTS_DIR = 'reports';
+const ROOT = path.join(__dirname, '..');
+const REPORTS_DIR = path.join(ROOT, 'reports');
 
 function findLatestReports(reportsDir) {
-  const reportsPath = path.join(__dirname, reportsDir);
+  const reportsPath = reportsDir;
   if (!fs.existsSync(reportsPath)) {
     throw new Error(`Reports directory not found: ${reportsPath}`);
   }
@@ -225,7 +226,7 @@ function runDiff() {
   const newerTs = path.basename(newerPath).replace('wcag-report-', '').replace('.json', '');
   const olderTs = path.basename(olderPath).replace('wcag-report-', '').replace('.json', '');
   const diffFilename = `wcag-diff-${newerTs}-vs-${olderTs}.html`;
-  const diffPath = path.join(__dirname, REPORTS_DIR, diffFilename);
+  const diffPath = path.join(REPORTS_DIR, diffFilename);
 
   fs.writeFileSync(diffPath, html);
   console.log(`\nDiff report saved to: ${diffPath}`);
