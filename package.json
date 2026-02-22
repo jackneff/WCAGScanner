@@ -6,7 +6,9 @@
   "scripts": {
     "scan": "node scan.js",
     "scan:ci": "pa11y-ci -c .pa11yci.json",
-    "report": "node generate-report.js"
+    "diff": "node diff.js",
+    "dashboard": "node dashboard.js",
+    "export": "node export.js"
   },
   "keywords": ["accessibility", "wcag", "pa11y", "a11y", "compliance"],
   "author": "",
@@ -14,6 +16,7 @@
   "dependencies": {
     "pa11y": "^8.0.0",
     "pa11y-ci": "^3.1.0",
+    "puppeteer": "^22.0.0",
     "axios": "^1.6.0",
     "xml2js": "^0.6.2"
   },
