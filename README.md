@@ -308,4 +308,4 @@ Add sandbox flags to `pa11yci.json`:
 
 ## License
 
-GPL-3.0
+MIT
